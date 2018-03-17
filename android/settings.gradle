@@ -1,0 +1,3 @@
+rootProject.name = 'nowsiVigilancia'
+
+include ':app'
