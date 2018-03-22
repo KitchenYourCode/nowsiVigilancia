@@ -6,9 +6,17 @@ const userReducer = ( state = [], action ) => {
   }
   return state;
 };
+const timerRefreshCoordsReducer = ( state = [], action ) => {
+  if (action.type === "TIMER_REFRESH_COORDS") {
+      return Object.assign({}, state, {data: action.data })
+  }
+
+  return state;
+};
 
 const rootReducer = combineReducers({
-    userReducer
+    userReducer,
+    timerRefreshCoordsReducer
 });
 const store = createStore(rootReducer);
 export default store;

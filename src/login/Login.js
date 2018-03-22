@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Store from './../Store'
-//onPress={()=> this.props.history.push('/GPS')
+
 import { Auth } from './../HandleFirebase';
 export default class Login extends Component {
 	constructor(props){
@@ -19,6 +19,7 @@ export default class Login extends Component {
     	});
     });    
   }
+
 	render(){
 		return(
 			<View style={style.container}>
@@ -46,6 +47,7 @@ export default class Login extends Component {
 						</Text>
 					</TouchableOpacity>
 					{this.state.data.validate ? this.props.history.push('/GPS') : console.log("falso")}
+
 				</View>
 			);
 	}

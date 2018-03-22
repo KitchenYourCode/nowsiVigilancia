@@ -4,6 +4,10 @@ import { View, Text, Image, StyleSheet, KeyboardAvoidingView  } from 'react-nati
 import Login from './login/Login.js';
 
 export default class Splash extends Component{
+	constructor(props){
+		super(props);
+		
+	}
 		render(){
 			return(
 				<KeyboardAvoidingView behavior="padding"  style={style.wrapper}>
