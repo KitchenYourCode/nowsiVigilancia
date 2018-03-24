@@ -16,17 +16,15 @@ export default class GetCoords extends Component<Props> {
     super(props);
     
     Store.subscribe(()=>{
-      /*this.setState({
-        data: Store.getState().userReducer.data,
-        timeRefresh: Store.getState().timerRefreshCoordsReducer.data.timer
-      });*/
     });
     this.state = {
       time: '-',
       long: '-',
       lat: '-',
-      data: {validate: false, user: '-'}
+      data: {validate: false, user: '-'},
+      direccion: '-'
     }
+    
        
   }
   componentWillMount(){
@@ -41,6 +39,9 @@ export default class GetCoords extends Component<Props> {
     setInterval(()=>{
       let tiempo = new Date();
       if (this.state.long !== '-') {
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+this.state.lat+','+this.state.long+'&location_type=ROOFTOP&result_type=street_address&key=AIzaSyA_pR17KAqw8D8nGQGSl31X0LosEtwpvUg')
+        .then(response => response.json())
+        .then(json => {console.log(json.results[0].formatted_address); this.setState({direccion:json.results[0].formatted_address}) });
         SetCoords(tiempo.getTime(),this.state.long, this.state.lat,Store.getState().userReducer.data.user, true,Store.getState().userReducer.data.userId );
       }
     }, 5000);
@@ -54,9 +55,7 @@ export default class GetCoords extends Component<Props> {
   render() {
     return (
       <View>
-        <Text>Tiempo: {this.state.time}</Text>
-        <Text>Longitud: {this.state.long}</Text>
-        <Text>Latitud: {this.state.lat}</Text>
+        <Text>Direccion: {this.state.direccion}</Text>
         <Text>User: {Store.getState().userReducer.data.user}</Text>
       </View>
     );

@@ -9,6 +9,7 @@ export default class Splash extends Component{
 		
 	}
 		render(){
+
 			return(
 				<KeyboardAvoidingView behavior="padding"  style={style.wrapper}>
 					<View style={style.wrapperTitle}>
