@@ -10,6 +10,9 @@ import {
 import { SetCoords } from './../HandleFirebase';
 import Store from './../Store'
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Text } from 'native-base';
+
+console.disableYellowBox = true;
+console.ignoredYellowBox = ['Warning Each', 'Warnign: Failed'];
 type Props = {};
 
 export default class GetCoords extends Component<Props> {
