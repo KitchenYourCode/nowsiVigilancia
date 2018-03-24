@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
-  Text,
+  BackHandler,
   View,
   Alert,
-  Button
+  Image
 } from 'react-native';
 import { SetCoords } from './../HandleFirebase';
 import Store from './../Store'
+import { Container, Header, Left, Body, Right, Button, Icon, Title, Text } from 'native-base';
 type Props = {};
 
 export default class GetCoords extends Component<Props> {
@@ -54,10 +55,51 @@ export default class GetCoords extends Component<Props> {
   }
   render() {
     return (
-      <View>
-        <Text>Direccion: {this.state.direccion}</Text>
-        <Text>User: {Store.getState().userReducer.data.user}</Text>
-      </View>
+
+        <Container>
+        <Header>
+          <Left>
+            <Button iconLeft small transparent onPress={()=>{return BackHandler.exitApp();}}>
+              <Icon name='close' />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Nowsi</Title>
+          </Body>
+        </Header>
+        <View style={style.wrapperTitle}>
+        <Image 
+            style={style.logo}
+            source={require('./../img/Octocat.png')} />
+            <Text>{Store.getState().userReducer.data.user}</Text>
+             <Text>Ubicacion actual:</Text>
+             <Text> {this.state.direccion}</Text>
+            </View>
+       
+        
+      </Container>
+
+
     );
   }
 }
+
+const style = StyleSheet.create({
+  wrapper:{
+    backgroundColor: '#f39c12',
+    flex: 1,
+  },
+  title:{
+    color: 'white',
+    fontSize: 35
+  },
+  wrapperTitle:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  logo:{
+    width:100,
+    height: 100
+  }
+});
