@@ -44,6 +44,10 @@ export function SetCoords(time, long, lat, user, active = false, userId ) {
 		firebaseApp.database().ref('Users/' + userId).update({
 	    active
 	  });
+		Store.dispatch({
+			type: 'USER_ACTIVE',
+			data: {validate: false, user: "-", userId:"-" }
+		});
 	}
 }
 export function configTimer() {

@@ -27,7 +27,8 @@ export default class GetCoords extends Component<Props> {
       long: '-',
       lat: '-',
       data: {validate: false, user: '-'},
-      direccion: '-'
+      direccion: '-',
+      userActive: false
     }
     
        
@@ -56,7 +57,7 @@ export default class GetCoords extends Component<Props> {
       break;
     }
   });
-    console.log(Store.getState());
+
     navigator.geolocation.watchPosition(
       position=>{this.setState({time:position.timestamp, long: position.coords.longitude, lat:position.coords.latitude});
       },
@@ -70,7 +71,7 @@ export default class GetCoords extends Component<Props> {
         fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng='+this.state.lat+','+this.state.long+'&location_type=ROOFTOP&result_type=street_address&key=AIzaSyA_pR17KAqw8D8nGQGSl31X0LosEtwpvUg')
         .then(response => response.json())
         .then(json => {console.log(json.results[0].formatted_address); this.setState({direccion:json.results[0].formatted_address}) });
-        SetCoords(tiempo.getTime(),this.state.long, this.state.lat,Store.getState().userReducer.data.user, true,Store.getState().userReducer.data.userId );
+        SetCoords(tiempo.getTime(),this.state.long, this.state.lat,Store.getState().userReducer.data.user, Store.getState().userReducer.data.validate,Store.getState().userReducer.data.userId );
       }
     }, 5000);
     
@@ -84,7 +85,7 @@ export default class GetCoords extends Component<Props> {
   exitAppFunc(){
     GPSState.removeListener();
     navigator.geolocation.stopObserving();
-    SetCoords(null, null, null, null, false, Store.getState().userReducer.data.userId);
+    SetCoords(null, null, null, null, !Store.getState().userReducer.data.validate, Store.getState().userReducer.data.userId);
     console.log("se desmonto");
   }
   render() {
