@@ -64,7 +64,7 @@ export default class GetCoords extends Component<Props> {
       error=>{alert("error")},
       {distanceFilter:5}
       );
-
+    if (Store.getState().userReducer.data.validate) {
     setInterval(()=>{
       let tiempo = new Date();
       if (this.state.long !== '-') {
@@ -74,7 +74,7 @@ export default class GetCoords extends Component<Props> {
         SetCoords(tiempo.getTime(),this.state.long, this.state.lat,Store.getState().userReducer.data.user, Store.getState().userReducer.data.validate,Store.getState().userReducer.data.userId );
       }
     }, 5000);
-    
+    }
   }
  /* componentWillUnmount(){
     GPSState.removeListener();
