@@ -37,7 +37,8 @@ export function SetCoords(time, long, lat, user, active = false, userId ) {
 	    user,
 	    long,
 	    lat,
-	    active
+	    active,
+	    time
 	  });
 	}else{
 		firebaseApp.database().ref('Users/' + userId).update({
