@@ -10,7 +10,7 @@ export default class Index extends Component<Props> {
 	}
   render() {
     return (
-		<GetCoords/>
+		<GetCoords history={this.props.history}/>
     );
   }
 }

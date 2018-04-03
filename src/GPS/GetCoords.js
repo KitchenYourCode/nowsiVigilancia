@@ -62,7 +62,7 @@ export default class GetCoords extends Component<Props> {
         <Container>
         <Header>
           <Left>
-            <Button iconLeft small transparent onPress={()=>{return BackHandler.exitApp();}}>
+            <Button iconLeft small transparent onPress={()=>{this.props.history.goBack()/*return BackHandler.exitApp();*/}}>
               <Icon name='close' />
             </Button>
           </Left>
@@ -77,6 +77,8 @@ export default class GetCoords extends Component<Props> {
             <Text>{Store.getState().userReducer.data.user}</Text>
              <Text>Ubicacion actual:</Text>
              <Text> {this.state.direccion}</Text>
+             <Text> {this.state.lat}</Text>
+             <Text> {this.state.long}</Text>
             </View>
        
         
