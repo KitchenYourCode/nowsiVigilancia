@@ -75,7 +75,13 @@ export default class GetCoords extends Component<Props> {
     }, 5000);
     
   }
-  componentWillUnmount(){
+ /* componentWillUnmount(){
+    GPSState.removeListener();
+    navigator.geolocation.stopObserving();
+    SetCoords(null, null, null, null, false, Store.getState().userReducer.data.userId);
+    console.log("se desmonto");
+  }*/
+  exitAppFunc(){
     GPSState.removeListener();
     navigator.geolocation.stopObserving();
     SetCoords(null, null, null, null, false, Store.getState().userReducer.data.userId);
@@ -87,7 +93,7 @@ export default class GetCoords extends Component<Props> {
         <Container>
         <Header>
           <Left>
-            <Button iconLeft small transparent onPress={()=>{this.props.history.goBack()/*return BackHandler.exitApp();*/}}>
+            <Button iconLeft small transparent onPress={()=>{this.exitAppFunc.bind(this); this.props.history.goBack()/*return BackHandler.exitApp();*/}}>
               <Icon name='close' />
             </Button>
           </Left>
