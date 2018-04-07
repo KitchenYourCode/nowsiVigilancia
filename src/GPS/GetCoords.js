@@ -39,7 +39,7 @@ export default class GetCoords extends Component<Props> {
     navigator.geolocation.watchPosition(
       position=>{this.setState({time:position.timestamp, long: position.coords.longitude, lat:position.coords.latitude});
       },
-      error=>{alert("error")},
+      error=>{alert("Error GPS no detectado")},
       {distanceFilter:5}
       );
     if (Store.getState().userReducer.data.validate) {
