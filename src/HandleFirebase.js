@@ -1,12 +1,13 @@
 import * as firebase from 'firebase';
 import Store from './Store'
 const firebaseConfig = {
-    apiKey: "AIzaSyDpsIWZtja9DNzS2yMLlIbCdIqtu9fWwD8",
+	 apiKey: "AIzaSyDpsIWZtja9DNzS2yMLlIbCdIqtu9fWwD8",
     authDomain: "vigilancia-e2011.firebaseapp.com",
     databaseURL: "https://vigilancia-e2011.firebaseio.com",
     projectId: "vigilancia-e2011",
     storageBucket: "",
-    messagingSenderId: "1001964929909"
+messagingSenderId: "1001964929909"
+
   };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
@@ -30,7 +31,7 @@ export function Auth(email, password){
 	  }
 	});
 }
-export function SetCoords(time, long, lat, user, active = false, userId ) {
+export function SetCoords(time, long, lat, user, active, userId ) {
 	if (active) {
 		firebaseApp.database().ref('Path').push({time,long,lat,user});
 		firebaseApp.database().ref('Users/' + userId).set({
@@ -40,22 +41,18 @@ export function SetCoords(time, long, lat, user, active = false, userId ) {
 	    active,
 	    time
 	  });
-	}else{
-		firebaseApp.database().ref('Users/' + userId).update({
-	    active
-	  });
-		Store.dispatch({
-			type: 'USER_ACTIVE',
-			data: {validate: false, user: "-", userId:"-" }
-		});
 	}
 }
-export function configTimer() {
-	firebase.database().ref('Config').on('value', (snapshot)=>{
-		Store.dispatch({
-			type: 'TIMER_REFRESH_COORDS',
-			data: snapshot.val().setIntervalTimeCoords
+export function signOut(userId) {
+	firebaseApp.database().ref('Users/' + userId).update({
+	    active: false
+	  });
+	firebase.auth().signOut().then(()=>{
+	  Store.dispatch({
+			type: 'USER_ACTIVE',
+			data: {validate: false }
 		});
-		console.log(snapshot.val().setIntervalTimeCoords);
+	}).catch(function(error) {
+	  // An error happened.
 	});
 }

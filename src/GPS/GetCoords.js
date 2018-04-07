@@ -7,10 +7,10 @@ import {
   Alert,
   Image
 } from 'react-native';
-import { SetCoords } from './../HandleFirebase';
+import { SetCoords, signOut } from './../HandleFirebase';
 import Store from './../Store'
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Text } from 'native-base';
-import GPSState from 'react-native-gps-state';
+
 
 console.disableYellowBox = true;
 console.ignoredYellowBox = ['Warning Each', 'Warnign: Failed'];
@@ -34,29 +34,7 @@ export default class GetCoords extends Component<Props> {
        
   }
   componentWillMount(){
-    GPSState.addListener((status)=>{
-    switch(status){
-      case GPSState.NOT_DETERMINED:
-        alert('Please, allow the location, for us to do amazing things for you!');
-      break;
 
-      case GPSState.RESTRICTED:
-        GPSState.openSettings();
-      break;
-
-      case GPSState.DENIED:
-        alert('It`s a shame that you do not allowed us to use location :(');
-      break;
-
-      case GPSState.AUTHORIZED_ALWAYS:
-        //TODO do something amazing with you app
-      break;
-
-      case GPSState.AUTHORIZED_WHENINUSE:
-        //TODO do something amazing with you app
-      break;
-    }
-  });
 
     navigator.geolocation.watchPosition(
       position=>{this.setState({time:position.timestamp, long: position.coords.longitude, lat:position.coords.latitude});
@@ -76,17 +54,10 @@ export default class GetCoords extends Component<Props> {
     }, 5000);
     }
   }
- /* componentWillUnmount(){
-    GPSState.removeListener();
-    navigator.geolocation.stopObserving();
-    SetCoords(null, null, null, null, false, Store.getState().userReducer.data.userId);
-    console.log("se desmonto");
-  }*/
+
   exitAppFunc(){
-    GPSState.removeListener();
+    signOut(Store.getState().userReducer.data.userId);
     navigator.geolocation.stopObserving();
-    SetCoords(null, null, null, null, !Store.getState().userReducer.data.validate, Store.getState().userReducer.data.userId);
-    console.log("se desmonto");
   }
   render() {
     return (
