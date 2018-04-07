@@ -27,15 +27,13 @@ export default class GetCoords extends Component<Props> {
       long: '-',
       lat: '-',
       data: {validate: false, user: '-'},
-      direccion: '-',
+      direccion: 'Geocodificando...',
       userActive: false
     }
     
        
   }
   componentWillMount(){
-
-
     navigator.geolocation.watchPosition(
       position=>{this.setState({time:position.timestamp, long: position.coords.longitude, lat:position.coords.latitude});
       },
